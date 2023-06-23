@@ -1,0 +1,14 @@
+input {
+    margin: 1.5rem 0;
+    width: 80%;
+    border: none;
+    border-radius: 0.4rem;
+    padding: 0.8rem 1.6rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0.2rem 0.8rem 1.6rem #5e35b1;
+}
