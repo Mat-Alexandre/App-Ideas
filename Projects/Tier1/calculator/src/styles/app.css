@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans&display=swap');
+
+:root {
+    --default-margin: 5px;
+    --radius-border: 5px;
+    --fnt-input-size: 2.5rem;
+    --fnt-output-size: 1rem;
+    --fnt-btn-size: 1rem;
+    --display-padding: 5px;
+    --font-color: #fff;
+    --font-color-muted: #9e9e9e;
+    --primary-btn-color: #3B3B3B;
+    --secondary-btn-color: #303030;
+}
+
+.calculator {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 5fr;
+    width: 321px;
+    height: 460px;
+    border-radius: var(--radius-border);
+    background-color: #202020;
+}
+
+.display {
+    display: grid;
+    margin: var(--default-margin);
+    text-align: end;
+    grid-template-rows: 1fr 3fr;
+}
+
+.output-display {
+    font-family: 'Public Sans', sans-serif;
+    color: var(--font-color-muted);
+    font-size: smaller;
+    font-size: var(--fnt-output-size);
+    padding: var(--display-padding);
+    display: grid;
+    align-items: center;
+}
+
+.input-display {
+    font-family: 'Public Sans', sans-serif;
+    color: var(--font-color);
+    font-size: var(--fnt-input-size);
+    padding: var(--display-padding);
+    display: grid;
+    align-items: center;
+}
+
+.board {
+    display: grid;
+    margin: 3px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    margin: 2px;
+    width: 100%;
+    border-radius: var(--radius-border);
+    border-style: none;
+    font-size: var(--fnt-btn-size);
+    font-family: medium'Public Sans', sans-serif;
+    color: var(--font-color);
+}
+
+button.numbers{
+    background-color: var(--primary-btn-color);
+}
+
+button.numbers:hover{
+    background-color: var(--secondary-btn-color);
+}
+
+button.operators{
+    background-color: var(--secondary-btn-color);
+}
+
+button.operators:hover{
+    background-color: var(--primary-btn-color);
+}
+
+button.equal {
+    background-color: #B0C5D6;
+}
+
+button.equal:hover {
+    background-color: #A1B4C3;
+}
