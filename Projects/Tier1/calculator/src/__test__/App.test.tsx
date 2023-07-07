@@ -25,7 +25,7 @@ describe("App Layout", () => {
   });
 
   it("renders all the digits, operators and buttons", () => {
-    const numButtonsInPad = 17;
+    const numButtonsInPad = 20;
     const buttons = screen.getAllByRole("button");
 
     expect(buttons.length).toEqual(numButtonsInPad);
@@ -47,8 +47,6 @@ describe("Click Events", () => {
   });
 
   it("should allow a simple equation [1+2*3]", () => {
-    // const { screen.getByRole, screen.getAllByRole } = render(<App />);
-
     fireEvent.click(
       screen.getByRole("button", { name: "1" })
     );
@@ -64,16 +62,20 @@ describe("Click Events", () => {
     fireEvent.click(
       screen.getByRole("button", { name: "3" })
     );
+    fireEvent.click(
+      screen.getByRole("button", { name: "=" })
+    );
 
-    const headingElement =
-      screen.getAllByRole("heading")[0];
-    expect(headingElement).toBeInTheDocument();
-    expect(headingElement.textContent).toEqual("1+2*3");
+    // The input display is rendered below the output one
+    const displayElement = screen.getAllByRole("heading");
+    expect(displayElement[0].textContent).toEqual(
+      "3 * 3 ="
+    );
+    expect(displayElement[1].textContent).toEqual("9");
   });
 
   it("should allow a long equation [11111111+22222222+33333333]", () => {
     const TIMES_TO_REPEAT = 8;
-    // const { screen.getByRole, screen.getAllByRole } = render(<App />);
 
     const plusButton = screen.getByRole("button", {
       name: "+",
@@ -94,15 +96,11 @@ describe("Click Events", () => {
       );
 
     const headingElement =
-      screen.getAllByRole("heading")[0];
-    expect(headingElement.textContent).toEqual(
-      "11111111+22222222+33333333"
-    );
+      screen.getAllByRole("heading")[1];
+    expect(headingElement.textContent).toEqual("33333333");
   });
 
   it("should clear all the input", () => {
-    // const { screen.getByRole, screen.getAllByRole } = render(<App />);
-
     const buttonOne = screen.getByRole("button", {
       name: "1",
     });
@@ -113,30 +111,24 @@ describe("Click Events", () => {
     fireEvent.click(buttonCE);
 
     const headingElement =
-      screen.getAllByRole("heading")[0];
-    expect(headingElement.textContent).toEqual("");
+      screen.getAllByRole("heading")[1];
+    expect(headingElement.textContent).toEqual("0");
   });
 
   it("should clear the last typed digit", () => {
-    // const { screen.getByRole, screen.getAllByRole } = render(<App />);
-
     const buttonOne = screen.getByRole("button", {
       name: "1",
     });
-    const buttonC = screen.getByRole("button", {
-      name: "C",
-    });
+    const buttonDelete = screen.getByLabelText("delete");
     for (let i = 0; i < 3; i++) fireEvent.click(buttonOne);
-    fireEvent.click(buttonC);
+    fireEvent.click(buttonDelete);
 
     const headingElement =
-      screen.getAllByRole("heading")[0];
+      screen.getAllByRole("heading")[1];
     expect(headingElement.textContent).toEqual("11");
   });
 
   it("should clear the last typed operator", () => {
-    // const { screen.getByRole, screen.getAllByRole } = render(<App />);
-
     const buttonOne = screen.getByRole("button", {
       name: "1",
     });
@@ -146,54 +138,21 @@ describe("Click Events", () => {
     const buttonMinus = screen.getByRole("button", {
       name: "-",
     });
-    const buttonC = screen.getByRole("button", {
-      name: "C",
+    const buttonCE = screen.getByRole("button", {
+      name: "CE",
     });
 
     fireEvent.click(buttonOne);
     fireEvent.click(buttonPlus);
-    fireEvent.click(buttonC);
+    fireEvent.click(buttonCE);
     fireEvent.click(buttonMinus);
     fireEvent.click(buttonOne);
 
-    const headingElement =
+    const auxiliaryDisplay =
       screen.getAllByRole("heading")[0];
-    expect(headingElement.textContent).toEqual("1-1");
-  });
+    const mainDisplay = screen.getAllByRole("heading")[1];
 
-  it("should evaluate correctly the operator precedence", () => {
-    // Equation to test: 1+2*3 = 7
-    const buttonOne = screen.getByRole("button", {
-      name: "1",
-    });
-    const buttonPlus = screen.getByRole("button", {
-      name: "+",
-    });
-    const buttonTwo = screen.getByRole("button", {
-      name: "2",
-    });
-    const buttonTimes = screen.getByRole("button", {
-      name: "*",
-    });
-    const buttonThree = screen.getByRole("button", {
-      name: "3",
-    });
-    const buttonEquals = screen.getByRole("button", {
-      name: "=",
-    });
-
-    fireEvent.click(buttonOne);
-    fireEvent.click(buttonPlus);
-    fireEvent.click(buttonTwo);
-    fireEvent.click(buttonTimes);
-    fireEvent.click(buttonThree);
-    fireEvent.click(buttonEquals);
-
-    const headingElement = screen.getAllByRole("heading");
-    const inputDisplay = headingElement[0].textContent;
-    const outputDisplay = headingElement[1].textContent;
-
-    expect(inputDisplay).toEqual("1+2*3");
-    expect(outputDisplay).toEqual("7");
+    expect(auxiliaryDisplay.textContent).toEqual("1 -");
+    expect(mainDisplay.textContent).toEqual("1");
   });
 });
