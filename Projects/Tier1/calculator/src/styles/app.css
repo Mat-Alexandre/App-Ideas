@@ -3,8 +3,8 @@
 :root {
     --default-margin: 5px;
     --radius-border: 5px;
-    --fnt-input-size: 2.5rem;
-    --fnt-output-size: 1rem;
+    --fnt-main-size: 2.5rem;
+    --fnt-auxiliary-size: 1rem;
     --fnt-btn-size: 1rem;
     --display-padding: 5px;
     --font-color: #fff;
@@ -30,20 +30,20 @@
     grid-template-rows: 1fr 3fr;
 }
 
-.output-display {
+.auxiliary-display {
     font-family: 'Public Sans', sans-serif;
     color: var(--font-color-muted);
     font-size: smaller;
-    font-size: var(--fnt-output-size);
+    font-size: var(--fnt-auxiliary-size);
     padding: var(--display-padding);
     display: grid;
     align-items: center;
 }
 
-.input-display {
+.main-display {
     font-family: 'Public Sans', sans-serif;
     color: var(--font-color);
-    font-size: var(--fnt-input-size);
+    font-size: var(--fnt-main-size);
     padding: var(--display-padding);
     display: grid;
     align-items: center;
