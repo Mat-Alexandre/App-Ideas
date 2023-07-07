@@ -92,3 +92,7 @@ button.equal {
 button.equal:hover {
     background-color: #A1B4C3;
 }
+
+path {
+    fill: var(--font-color);
+}
